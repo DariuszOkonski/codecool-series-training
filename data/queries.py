@@ -80,4 +80,22 @@ def get_show_seasons(id):
 
 # =================================================
 def get_genres():
-    return data_manager.execute_select("""SELECT * FROM genres""")
+    return data_manager.execute_select("""SELECT * FROM genres ORDER BY name""")
+
+def insert_genre(name):
+    return data_manager.execute_dml_statement("""
+        INSERT INTO genres(id, name) VALUES ((SELECT (MAX(id) + 1) FROM genres), %(name)s)       
+    """, {"name": name})
+
+
+
+
+
+
+
+
+
+
+
+
+

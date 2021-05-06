@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, redirect, request
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -80,6 +80,18 @@ def show_genres():
     genres = queries.get_genres()
 
     return render_template('show_genres.html', genres=genres)
+
+@app.route('/insert-genre', methods=['GET'])
+def insert_genre():
+
+    return render_template('insert_genre.html')
+
+@app.route('/insert-genre', methods=['POST'])
+def post_insert_genre():
+    name = request.form.get('name')
+    queries.insert_genre(name)
+
+    return redirect(url_for('show_genres'))
 
 
 def main():

@@ -7,6 +7,7 @@
     <table id="table" style="width: 50%">
         <thead>
             <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Actions</th>
             </tr>
@@ -14,6 +15,7 @@
         <tbody>
             {% for genre in genres %}
                 <tr>
+                    <td>{{ genre['id'] }}</td>
                     <td>{{ genre['name'] }}</td>
                     <td>
                         <a href="/update-genre/{{ genre['id'] }}" type="button" id="bt_login">update genre</a>
