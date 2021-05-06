@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request
+from flask import Flask, render_template, url_for, redirect, request, jsonify
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -75,41 +75,54 @@ def show(id):
     return render_template('show.html', show=show, seasons=seasons)
 
 # ==============================================================
+
 @app.route('/show-genres')
 def show_genres():
+    return render_template('show_genres.html')
+
+@app.route('/get-genres')
+def get_genres():
     genres = queries.get_genres()
+    return jsonify(genres)
 
-    return render_template('show_genres.html', genres=genres)
 
-@app.route('/insert-genre', methods=['GET'])
-def insert_genre():
 
-    return render_template('insert_genre.html')
-
-@app.route('/insert-genre', methods=['POST'])
-def post_insert_genre():
-    name = request.form.get('name')
-    queries.insert_genre(name)
-
-    return redirect(url_for('show_genres'))
-
-@app.route('/update-genre/<int:id>', methods=['GET'])
-def update_genre(id: int):
-    genre = queries.get_genre(id)[0]
-
-    return render_template('update_genre.html', genre=genre)
-
-@app.route('/update-genre/<int:id>', methods=['POST'])
-def post_update_genre(id: int):
-    queries.update_genre(id, request.form['name'])
-
-    return redirect(url_for('show_genres'))
-
-@app.route('/delete-genre/<int:id>', methods=['GET'])
-def delete_genre(id: int):
-    queries.delete_genre(id)
-
-    return redirect(url_for('show_genres'))
+# ============================================================
+# @app.route('/show-genres')
+# def show_genres():
+#     genres = queries.get_genres()
+#
+#     return render_template('show_genres.html', genres=genres)
+# @app.route('/insert-genre', methods=['GET'])
+# def insert_genre():
+#
+#     return render_template('insert_genre.html')
+#
+# @app.route('/insert-genre', methods=['POST'])
+# def post_insert_genre():
+#     name = request.form.get('name')
+#     queries.insert_genre(name)
+#
+#     return redirect(url_for('show_genres'))
+#
+# @app.route('/update-genre/<int:id>', methods=['GET'])
+# def update_genre(id: int):
+#     genre = queries.get_genre(id)[0]
+#
+#     return render_template('update_genre.html', genre=genre)
+#
+# @app.route('/update-genre/<int:id>', methods=['POST'])
+# def post_update_genre(id: int):
+#     queries.update_genre(id, request.form['name'])
+#
+#     return redirect(url_for('show_genres'))
+#
+# @app.route('/delete-genre/<int:id>', methods=['GET'])
+# def delete_genre(id: int):
+#     queries.delete_genre(id)
+#
+#     return redirect(url_for('show_genres'))
+# ============================================================
 
 def main():
     app.run(debug=False)

@@ -3,28 +3,29 @@
 {% block content %}
 
 <h1 class="title text-center">Show Genres</h1>
-<div class="card">
-    <table id="table" style="width: 50%">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for genre in genres %}
-                <tr>
-                    <td>{{ genre['id'] }}</td>
-                    <td>{{ genre['name'] }}</td>
-                    <td>
-                        <a href="/update-genre/{{ genre['id'] }}" type="button" id="bt_login">update genre</a>
-                        <a href="/delete-genre/{{ genre['id'] }}" type="button" id="bt_login">delete genre</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-
-    </table>
+<div class="card" id="show-genres">
+{#    <table id="table" style="width: 50%">#}
+{#        <thead>#}
+{#            <tr>#}
+{#                <th>ID</th>#}
+{#                <th>Name</th>#}
+{#                <th>Actions</th>#}
+{#            </tr>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#            {% for genre in genres %}#}
+{#                <tr>#}
+{#                    <td>{{ genre['id'] }}</td>#}
+{#                    <td>{{ genre['name'] }}</td>#}
+{#                    <td>#}
+{#                        <a href="/update-genre/{{ genre['id'] }}" type="button" id="bt_login">update genre</a>#}
+{#                        <a href="/delete-genre/{{ genre['id'] }}" type="button" id="bt_login">delete genre</a>#}
+{#                    </td>#}
+{#                </tr>#}
+{#            {% endfor %}#}
+{#        </tbody>#}
+{##}
+{#    </table>#}
 </div>
+    <script type="module" src="../static/js/main.js"></script>
 {% endblock %}
