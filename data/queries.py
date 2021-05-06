@@ -78,7 +78,7 @@ def get_show_seasons(id):
         WHERE shows.id = %(id)s;
     """, {"id": id})
 
-# =================================================
+# =======================================================================
 def get_genres():
     return data_manager.execute_select("""SELECT * FROM genres ORDER BY name""")
 
@@ -97,7 +97,10 @@ def update_genre(id, name):
         UPDATE genres SET name=%(name)s WHERE id=%(id)s
     """, {"id": id, "name": name})
 
-
+def delete_genre(id):
+    return data_manager.execute_dml_statement("""
+        DELETE FROM genres WHERE id=%(id)s
+    """, {"id": id})
 
 
 

@@ -105,6 +105,12 @@ def post_update_genre(id: int):
 
     return redirect(url_for('show_genres'))
 
+@app.route('/delete-genre/<int:id>', methods=['GET'])
+def delete_genre(id: int):
+    queries.delete_genre(id)
+
+    return redirect(url_for('show_genres'))
+
 def main():
     app.run(debug=False)
 
