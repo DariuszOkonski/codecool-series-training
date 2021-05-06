@@ -93,6 +93,17 @@ def post_insert_genre():
 
     return redirect(url_for('show_genres'))
 
+@app.route('/update-genre/<int:id>', methods=['GET'])
+def update_genre(id: int):
+    genre = queries.get_genre(id)[0]
+
+    return render_template('update_genre.html', genre=genre)
+
+@app.route('/update-genre/<int:id>', methods=['POST'])
+def post_update_genre(id: int):
+    queries.update_genre(id, request.form['name'])
+
+    return redirect(url_for('show_genres'))
 
 def main():
     app.run(debug=False)
