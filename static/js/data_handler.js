@@ -23,6 +23,18 @@ export const data_handler = {
             .then(data => callback(data))
             .catch(err => console.log('ERR: ', err))
     },
+    _api_delete(url, data, callback) {
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => callback(data))
+            .catch(err => console.log('ERR: ', err))
+    },
     loadGenres(callback) {
         this._api_get('/get-genres', (response) => {
             callback(response)
@@ -37,5 +49,8 @@ export const data_handler = {
         this._api_post('/update-genre', data, (response) => {
             callback(response);
         })
-}
+    },
+    deleteGenre(id, callback) {
+        this._api_delete('/delete-genre', id, callback)
+    }
 }

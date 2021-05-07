@@ -102,7 +102,7 @@ def update_genre(id, name):
 
 def delete_genre(id):
     return data_manager.execute_dml_statement("""
-        DELETE FROM genres WHERE id=%(id)s
+        DELETE FROM genres WHERE id=%(id)s RETURNING *
     """, {"id": id})
 
 

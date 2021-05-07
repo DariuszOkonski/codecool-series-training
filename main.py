@@ -93,7 +93,6 @@ def insert_genre():
     return jsonify(response)
 
 
-
 @app.route('/update-genre', methods=['POST'])
 def update_genre():
     genre_data = request.get_json()
@@ -102,6 +101,14 @@ def update_genre():
     response = queries.update_genre(id, name)
 
     return jsonify(response)
+
+
+@app.route('/delete-genre', methods=['POST'])
+def delete_genre():
+    print(request.get_json(), ' json')
+    response = queries.delete_genre(request.get_json()['id'])
+    return jsonify(response)
+
 
 
 

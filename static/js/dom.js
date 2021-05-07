@@ -59,6 +59,7 @@ export const dom = {
             })
             buttonDelete.addEventListener('click', () => {
                 let id = res.id;
+                dom.deleteGenre({id: id});
             })
 
             td.appendChild(buttonUpdate)
@@ -118,6 +119,11 @@ export const dom = {
     },
     updateGenre(data) {
         data_handler.updateGenre({id: data.id, name: data.name}, (response) => {
+            this.getGenres();
+        })
+    },
+    deleteGenre(id) {
+        data_handler.deleteGenre(id, () => {
             this.getGenres();
         })
     }
