@@ -51,5 +51,12 @@ export const data_handler = {
     },
     deleteGenre(id, callback) {
         this._api_delete('/delete-genre', id, callback)
-    }
+    },
+    register(user_data, callback) {
+        this._api_post('/register', user_data, callback)
+    },
+    login(user_data, callback) {
+        this._api_post('/login', user_data, callback)
+    },
+
 }

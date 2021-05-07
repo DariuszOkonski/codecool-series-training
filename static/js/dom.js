@@ -3,15 +3,21 @@ import {data_handler} from "./data_handler.js"
 export const dom = {
     domElements: {
         divGenres: document.getElementById('show-genres'),
+        divRegister: document.getElementById('register'),
+        divLogin: document.getElementById('login'),
         buttons: {
             insertGenre: document.getElementById('bt_insert')
         }
     },
     init() {
-        this.getGenres();
-        this.domElements.buttons.insertGenre.addEventListener('click',this.insertGenreClick);
+            if (dom.domElements.divGenres) {
+                this.getGenres();
+                this.domElements.buttons.insertGenre.addEventListener('click',this.insertGenreClick);
 
-
+            } else {
+                this.createRegiserForm();
+                this.createLoginrForm();
+            }
         },
     getGenres() {
         const genres = data_handler.loadGenres((response) => {
@@ -54,8 +60,6 @@ export const dom = {
                 let nameTd = document.querySelector(`[data-id="${res.id}"]`)
                 const updateForm = dom.createFormUpdate({id: res.id, name: nameTd.innerText})
                 nameTd.replaceWith(updateForm);
-                console.log(value);
-
             })
             buttonDelete.addEventListener('click', () => {
                 let id = res.id;
@@ -126,5 +130,65 @@ export const dom = {
         data_handler.deleteGenre(id, () => {
             this.getGenres();
         })
+    },
+    createRegiserForm() {
+         let input = `
+            <div class="card" style="width: 50%">
+                <p class="form-element">Register:</p>
+                <form>            
+                    <p class="form-element">
+                        <label class="form-element-label" >New Login:</label>
+                        <input type="text" data-register="login" required>
+                    </p>
+                    <p class="form-element">
+                        <label class="form-element-label" >New Password:</label>
+                        <input type="text" data-register="password" required>
+                    </p>
+                    <p class="text-center">
+                        <button id="btn-submit-register"  type="button">Submit</button>
+                    </p>
+                </form>
+            </div>
+        `
+        dom.domElements.divRegister.innerHTML = input;
+         document.getElementById('btn-submit-register').addEventListener('click', () => {
+             ccc
+
+             data_handler.register({login, password}, (response) => {
+                 console.log('Successs == ======')
+                 console.log(response)
+             })
+         })
+
+    },
+    createLoginrForm() {
+         let input = `
+            <div class="card" style="width: 50%">
+                <p class="form-element">Login:</p>
+                <form>            
+                    <p class="form-element">
+                        <label class="form-element-label" >Login:</label>
+                        <input type="text" data-login="login" required>
+                    </p>
+                    <p class="form-element">
+                        <label class="form-element-label" >Password:</label>
+                        <input type="text" data-login="password" required>
+                    </p>
+                    <p class="text-center">
+                        <button id="btn-submit-login" type="button">Submit</button>
+                    </p>
+                </form>
+            </div>
+        `
+        dom.domElements.divLogin.innerHTML = input;
+         document.getElementById('btn-submit-login').addEventListener('click', () => {
+             let login = document.querySelector('[data-login="login"]').value;
+             let password = document.querySelector('[data-login="password"]').value;
+
+             data_handler.login({login, password}, (response) => {
+                 console.log('Successs Login == ======')
+                 this.getGenres()
+             })
+         })
     }
 }

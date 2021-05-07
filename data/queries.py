@@ -105,7 +105,19 @@ def delete_genre(id):
         DELETE FROM genres WHERE id=%(id)s RETURNING *
     """, {"id": id})
 
+def register(user):
+    return data_manager.execute_dml_statement("""
+        INSERT INTO users(id, login, password)
+        VALUES ((SELECT (MAX(id) + 1) 
+        FROM users), %(login)s, %(password)s)
+        RETURNING *
+    """,
+    {"login": user['login'], "password": user['password']})
 
+def user_validated(user):
+    return data_manager.execute_select("""
+        SELECT * FROM users WHERE login=%(login)s AND password=%(password)s;
+        """, {"login": user['login'], "password": user['password']})
 
 
 

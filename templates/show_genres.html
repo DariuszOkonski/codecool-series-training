@@ -3,8 +3,18 @@
 {% block content %}
 
 <h1 class="title text-center">Show Genres</h1>
-<div class="card" id="show-genres">
+    {% if session.get('login') %}
+    <div class="card" id="show-genres">
 
-</div>
+    </div>
+    {% else %}
+        <div class="card" id="register">
+            Register
+        </div>
+        <div class="card" id="login">
+            Login
+        </div>
+    {% endif %}
+
     <script type="module" src="../static/js/main.js"></script>
 {% endblock %}

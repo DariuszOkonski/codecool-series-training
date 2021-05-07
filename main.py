@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect, request, jsonify
+from flask import Flask, render_template, url_for, redirect, request, jsonify, session
 from data import queries
 import math
 from dotenv import load_dotenv
@@ -8,9 +8,12 @@ app = Flask('codecool_series')
 SHOWS_PER_PAGE = 15
 SHOWN_PAGE_NUMBERS = 5 # should be odd to have a symmetry in pagination
 
+app.secret_key = 'some-secret-key'
+
 @app.route('/')
 def index():
     shows = queries.get_shows()
+
     return render_template('index.html', shows=shows)
 
 
@@ -105,9 +108,25 @@ def update_genre():
 
 @app.route('/delete-genre', methods=['POST'])
 def delete_genre():
-    print(request.get_json(), ' json')
     queries.delete_genre(request.get_json()['id'])
     return jsonify("")
+
+@app.route('/register', methods=['POST'])
+def register():
+    user = request.get_json()
+    user = queries.register(user)
+
+    return jsonify(user)
+
+@app.route('/login', methods=['POST'])
+def login():
+    user = request.get_json()
+    is_valid = queries.user_validated(user)
+
+    if is_valid:
+        session['login'] = user['login']
+
+    return jsonify(is_valid)
 
 
 

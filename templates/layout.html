@@ -48,7 +48,10 @@
     <section>
         <div class="card">
             <a href="/show-genres" type="button" id="bt_login">show genre</a>
-            <button type="button" id="bt_insert">insert genre</button>
+
+            {% if session.get('login') %}
+                <button type="button" id="bt_insert">insert genre</button>
+            {% endif %}
 
         </div>
         {% block content %}
