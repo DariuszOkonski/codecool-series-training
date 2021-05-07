@@ -5,7 +5,7 @@ export const dom = {
         divGenres: document.getElementById('show-genres'),
     },
     init() {
-        this.getGenres();
+        this.getGenresWithoutCallback();
     },
     getGenres() {
         const genres = data_handler.loadGenres((response) => {
@@ -14,6 +14,13 @@ export const dom = {
 
             this.buildShowGenres(response)
         })
+    },
+    getGenresWithoutCallback() {
+        data_handler.getGenres().then(response => {
+            const result = response
+            console.log(result)
+        })
+
     },
     buildShowGenres(response) {
         const table = document.createElement('table')
