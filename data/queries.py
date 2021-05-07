@@ -97,13 +97,14 @@ def insert_genre(name):
 
 def update_genre(id, name):
     return data_manager.execute_dml_statement("""
-        UPDATE genres SET name=%(name)s WHERE id=%(id)s
+        UPDATE genres SET name=%(name)s WHERE id=%(id)s RETURNING *
     """, {"id": id, "name": name})
 
 def delete_genre(id):
     return data_manager.execute_dml_statement("""
         DELETE FROM genres WHERE id=%(id)s
     """, {"id": id})
+
 
 
 

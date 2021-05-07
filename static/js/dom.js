@@ -40,16 +40,31 @@ export const dom = {
 
             td = document.createElement('td')
             td.innerText = `${res.name}`
+            td.dataset.id = `${res.id}`  // assign dataset < ======
             tr.appendChild(td)
 
             td = document.createElement('td')
-            td.innerHTML = `
-                <button type="button" value='${res.id}' id="bt_login">update genre</button>
-                <button type="button" value='${res.id}' id="bt_login">delete genre</button>
-            `
+
+            const buttonUpdate = document.createElement('button');
+            buttonUpdate.innerText = 'update'
+            const buttonDelete = document.createElement('button');
+            buttonDelete.innerText = 'delete'
+
+            buttonUpdate.addEventListener('click', () => {
+                let nameTd = document.querySelector(`[data-id="${res.id}"]`)
+                const updateForm = dom.createFormUpdate({id: res.id, name: nameTd.innerText})
+                nameTd.replaceWith(updateForm);
+                console.log(value);
+
+            })
+            buttonDelete.addEventListener('click', () => {
+                let id = res.id;
+            })
+
+            td.appendChild(buttonUpdate)
+            td.appendChild(buttonDelete)
+
             tr.appendChild(td)
-
-
 
             tbody.appendChild(tr);
         })
@@ -58,6 +73,7 @@ export const dom = {
         thead.appendChild(tr);
         table.appendChild(thead)
         table.appendChild(tbody)
+        this.domElements.divGenres.innerHTML = "";
         this.domElements.divGenres.appendChild(table)
     },
     insertGenreClick() {
@@ -80,9 +96,29 @@ export const dom = {
         document.getElementById('btn-submit-genre').addEventListener('click', () => {
             const inputGenre = document.getElementById('form-example-season').value;
             data_handler.insertGenre({name: inputGenre}, (response) => {
-                dom.domElements.divGenres.innerHTML = "";
                 dom.getGenres()
             })
+        })
+    },
+    createFormUpdate(data) {
+        const div = document.createElement('div');
+        const input = document.createElement('input');
+
+        input.value = data.name;
+
+        const button = document.createElement('button');
+        button.innerText = 'submit';
+        button.addEventListener('click', () => {
+            dom.updateGenre({id: data.id, name: input.value})
+        })
+
+        div.appendChild(input);
+        div.appendChild(button);
+        return div;
+    },
+    updateGenre(data) {
+        data_handler.updateGenre({id: data.id, name: data.name}, (response) => {
+            this.getGenres();
         })
     }
 }

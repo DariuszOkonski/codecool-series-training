@@ -32,5 +32,10 @@ export const data_handler = {
         this._api_post('/insert-genre', data, (response) => {
             callback(response)
         })
-    }
+    },
+    updateGenre(data, callback) {
+        this._api_post('/update-genre', data, (response) => {
+            callback(response);
+        })
+}
 }

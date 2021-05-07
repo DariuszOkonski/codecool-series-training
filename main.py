@@ -94,6 +94,17 @@ def insert_genre():
 
 
 
+@app.route('/update-genre', methods=['POST'])
+def update_genre():
+    genre_data = request.get_json()
+    id = genre_data['id']
+    name = genre_data['name']
+    response = queries.update_genre(id, name)
+
+    return jsonify(response)
+
+
+
 # ============================================================
 # @app.route('/show-genres')
 # def show_genres():
