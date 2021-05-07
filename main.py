@@ -106,8 +106,8 @@ def update_genre():
 @app.route('/delete-genre', methods=['POST'])
 def delete_genre():
     print(request.get_json(), ' json')
-    response = queries.delete_genre(request.get_json()['id'])
-    return jsonify(response)
+    queries.delete_genre(request.get_json()['id'])
+    return jsonify("")
 
 
 

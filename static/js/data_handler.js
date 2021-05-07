@@ -31,8 +31,7 @@ export const data_handler = {
             },
             body: JSON.stringify(data)
         })
-            .then(response => response.json())
-            .then(data => callback(data))
+            .then(callback)
             .catch(err => console.log('ERR: ', err))
     },
     loadGenres(callback) {
