@@ -85,6 +85,13 @@ def get_genres():
     genres = queries.get_genres()
     return jsonify(genres)
 
+@app.route('/insert-genre', methods=['POST'])
+def insert_genre():
+    genre = request.get_json()
+    response = queries.insert_genre(genre['name'])
+
+    return jsonify(response)
+
 
 
 # ============================================================
